@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="100" fill="#3498db"/>
+  
+  <!-- User head -->
+  <circle cx="100" cy="80" r="40" fill="#f5f5f5"/>
+  
+  <!-- User hair -->
+  <path d="M60 60C60 40 80 30 100 30C120 30 140 40 140 60C140 80 130 85 130 85C130 85 120 70 100 70C80 70 70 85 70 85C70 85 60 80 60 60Z" fill="#333333"/>
+  
+  <!-- User face -->
+  <circle cx="85" cy="75" r="5" fill="#333333"/> <!-- Left eye -->
+  <circle cx="115" cy="75" r="5" fill="#333333"/> <!-- Right eye -->
+  <path d="M90 95C93.3333 98.3333 106.667 98.3333 110 95" stroke="#333333" stroke-width="3" stroke-linecap="round"/> <!-- Smile -->
+  
+  <!-- User body -->
+  <path d="M70 120L70 160C70 180 85 185 100 185C115 185 130 180 130 160L130 120" fill="#f5f5f5"/>
+  
+  <!-- User shirt collar -->
+  <path d="M70 120C70 110 85 105 100 105C115 105 130 110 130 120" fill="#f5f5f5"/>
+  
+  <!-- User shirt -->
+  <path d="M75 125L75 160C75 175 85 180 100 180C115 180 125 175 125 160L125 125" fill="#3498db"/>
+  <path d="M100 105L100 185" stroke="#2980b9" stroke-width="2"/>
+  
+  <!-- User collar -->
+  <path d="M85 120L100 135L115 120" stroke="#f5f5f5" stroke-width="5" stroke-linecap="round"/>
+</svg> 

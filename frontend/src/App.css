@@ -1,0 +1,1494 @@
+:root {
+  --primary-color: #6a11cb;
+  --secondary-color: #2575fc;
+  --text-color: #fff;
+  --background-color: #0f1631;
+  --accent-color: #ff4876;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 230px 50px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 320px 90px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 400px 150px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 460px 260px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 520px 330px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 580px 40px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 650px 90px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 720px 160px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 800px 220px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 1000px 1000px;
+  z-index: -1;
+  animation: twinkle 8s infinite alternate;
+}
+
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.chat-container {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+}
+
+.messages {
+  height: 490px;
+  overflow-y: auto;
+  padding: 15px 20px 5px 20px;
+  background-color: transparent;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  will-change: transform, opacity;
+}
+
+.message.user {
+  flex-direction: row-reverse;
+}
+
+.message.user .avatar {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.message.user .message-bubble {
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.7), rgba(52, 152, 219, 0.9));
+  color: white;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.message.bot {
+  flex-direction: row;
+}
+
+.message.bot .message-bubble {
+  background: linear-gradient(135deg, rgba(125, 95, 255, 0.7), rgba(125, 95, 255, 0.9));
+  color: white;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.message.bold {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.typing-indicator {
+  display: flex;
+  padding: 10px;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background-color: #666;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 2px;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+.input-area-container {
+  padding: 15px;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.input-area {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background: rgba(40, 50, 90, 0.7);
+  border-radius: 25px;
+  border: 1px solid rgba(125, 95, 255, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-area input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  padding: 8px 12px;
+  outline: none;
+  width: 100%;
+}
+
+.input-area input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Send button styling */
+.send-button {
+  margin-left: 10px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(125, 95, 255, 0.9), rgba(40, 50, 90, 0.9));
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.send-button span,
+.mic-button span {
+  font-size: 16px;
+  color: white;
+  transition: transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(125, 95, 255, 1), rgba(40, 50, 90, 1));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.send-button:hover:not(:disabled) span {
+  transform: scale(1.1);
+}
+
+.send-button:disabled {
+  background: linear-gradient(135deg, rgba(125, 95, 255, 0.3), rgba(40, 50, 90, 0.3));
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.send-button:disabled span {
+  opacity: 0.5;
+}
+
+/* Microphone button styling */
+.mic-button {
+  margin-left: 10px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(40, 50, 90, 0.8), rgba(40, 50, 90, 0.6));
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mic-button:hover {
+  background: linear-gradient(135deg, rgba(40, 50, 90, 0.9), rgba(40, 50, 90, 0.7));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.mic-button.active {
+  background: linear-gradient(135deg, #7d5fff, #6a11cb);
+  box-shadow: 0 0 15px rgba(125, 95, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.mic-button.active i {
+  animation: pulse 1s infinite;
+}
+
+/* Button animations */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Active state animations */
+.mic-button.active::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  border: 2px solid rgba(125, 95, 255, 0.7);
+  animation: ripple 1.5s infinite;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Scrollbar styling */
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.doctor-avatar, .user-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.message-bubble {
+  padding: 12px 16px;
+  border-radius: 18px;
+  max-width: calc(100% - 50px);
+  line-height: 1.4;
+  position: relative;
+  backdrop-filter: blur(4px);
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+.message.user .message-bubble {
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.7), rgba(52, 152, 219, 0.9));
+  color: white;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.message.bot .message-bubble {
+  background: linear-gradient(135deg, rgba(125, 95, 255, 0.7), rgba(125, 95, 255, 0.9));
+  color: white;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Error message styling with pink background */
+.message-bubble.error {
+  background-color: rgba(255, 204, 204, 0.9) !important;
+  color: #ff3333 !important;
+  border-left: 3px solid #ff3333;
+}
+
+.message-content {
+  word-break: break-word;
+}
+
+.symptom-form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgba(20, 30, 60, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.input-container {
+  display: flex;
+  gap: 10px;
+}
+
+.symptom-input {
+  flex: 1;
+  padding: 12px 20px;
+  border: 2px solid rgba(30, 40, 70, 0.5);
+  border-radius: 30px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #333;
+  outline: none;
+  caret-color: #333;
+}
+
+.symptom-input::placeholder {
+  color: rgba(30, 40, 70, 0.6);
+}
+
+.symptom-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.3);
+  background-color: white;
+}
+
+button {
+  padding: 12px 25px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+button:disabled {
+  background: linear-gradient(135deg, #3a3a3a, #1a1a1a);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Updated header to match chat interface colors */
+.header {
+  background: linear-gradient(135deg, rgba(40, 50, 90, 0.85), rgba(125, 95, 255, 0.85));
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.header h1 {
+  color: white;
+  background: none;
+  -webkit-text-fill-color: white;
+  color: white;
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header p {
+  opacity: 0.9;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  background-color: rgba(20, 30, 60, 0.7);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 12px 12px 0 0;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  margin: 0 2px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.7;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation: pulse 1s infinite 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation: pulse 1s infinite 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation: pulse 1s infinite 0.4s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(0.7);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Styles for selected symptoms */
+.selected-symptoms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.symptom-tag {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.3), rgba(37, 117, 252, 0.3));
+  border-radius: 15px;
+  font-size: 0.9rem;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.remove-symptom {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 5px;
+  box-shadow: none;
+}
+
+.remove-symptom:hover {
+  transform: scale(1.2);
+  box-shadow: none;
+}
+
+/* Updated diagnosis display */
+.diagnosis-container {
+  display: block !important;
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(125, 95, 255, 0.1);
+}
+
+.diagnosis-content {
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.diagnosis-error {
+  display: block;
+  background: #fff3f3;
+  border: 1px solid #ffcdd2;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: #d32f2f;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.diagnosis-card {
+  display: block;
+  background-color: rgba(40, 50, 90, 0.85);
+  border-radius: 12px !important;
+  padding: 10px;
+  margin-top: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: white;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+/* Severity-based card styles */
+.severity-indicator {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.high-severity {
+  background-color: rgba(255, 68, 68, 0.3);
+  color: #ff4444;
+}
+
+.medium-severity {
+  background-color: rgba(255, 187, 51, 0.3);
+  color: #ffbb33;
+}
+
+.low-severity {
+  background-color: rgba(0, 200, 81, 0.3);
+  color: #00C851;
+}
+
+.unknown-severity {
+  background-color: rgba(51, 181, 229, 0.3);
+  color: #33b5e5;
+}
+
+.diagnosis-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.diagnosis-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.diagnosis-header h3 {
+  margin: 0;
+  font-size: 16px;
+  flex-grow: 1;
+  color: white;
+}
+
+.diagnosis-header h3 span {
+  font-weight: 700;
+}
+
+/* Update speak button in diagnosis */
+.speak-button {
+  background: rgba(125, 95, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.speak-button:hover {
+  background-color: rgba(125, 95, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.diagnosis-severity {
+  margin-bottom: 6px;
+}
+
+.severity-label {
+  margin-right: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.severity-badge {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.severity-badge.high-severity {
+  background-color: rgba(255, 68, 68, 0.3);
+  color: #ff4444;
+}
+
+.severity-badge.medium-severity {
+  background-color: rgba(255, 187, 51, 0.3);
+  color: #ffbb33;
+}
+
+.severity-badge.low-severity {
+  background-color: rgba(0, 200, 81, 0.3);
+  color: #00C851;
+}
+
+.severity-badge.unknown-severity {
+  background-color: rgba(51, 181, 229, 0.3);
+  color: #33b5e5;
+}
+
+.diagnosis-recommendations {
+  margin-top: 6px;
+}
+
+.diagnosis-recommendations h4 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+}
+
+.diagnosis-recommendations ul {
+  margin: 0;
+  padding: 0 0 0 5px;
+  list-style-type: none;
+}
+
+.diagnosis-recommendations li {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: flex-start;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+}
+
+.recommendation-bullet {
+  color: #33b5e5;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Fix for typing indicator in message bubble */
+.message.bot .message-bubble .typing-indicator {
+  padding: 0;
+  min-width: 40px;
+}
+
+/* Messages with pink background for errors */
+.message.bot .message-bubble.error {
+  background-color: #ffebee;
+}
+
+/* Remove outer rectangles from chatbot */
+.rsc-container {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.rsc-header {
+  display: none !important;
+}
+
+.rsc-content {
+  background: transparent !important;
+}
+
+.rsc-ts-bubble {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #333 !important;
+}
+
+.rsc-cs-bubble {
+  background: white !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: #333 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.rsc-footer {
+  background: transparent !important;
+  border-top: none !important;
+}
+
+.rsc-os-option-element {
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Loading indicator */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading:after {
+  content: "...";
+  width: 20px;
+  text-align: left;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { content: "."; }
+  33% { content: ".."; }
+  66% { content: "..."; }
+}
+
+/* User input container */
+.user-input-container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  gap: 10px;
+}
+
+.user-input {
+  flex: 1;
+  border-radius: 20px !important;
+  border: 1px solid rgba(30, 40, 70, 0.5) !important;
+  padding: 12px 16px !important;
+  font-size: 0.95rem !important;
+  outline: none;
+  background-color: white !important;
+  color: #333 !important;
+  caret-color: #333 !important;
+}
+
+.user-input:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.3) !important;
+  background-color: white !important;
+}
+
+/* Add custom styling for avatar display in the chatbot */
+.rsc-ts-image-container {
+  margin-right: 8px !important;
+}
+
+.rsc-ts-image {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--primary-color) !important;
+  background-color: white !important;
+}
+
+.rsc-cs-image-container {
+  margin-left: 8px !important;
+}
+
+.rsc-cs-image {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--accent-color) !important;
+  background-color: white !important;
+}
+
+.chatbot-container {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Listening wave animation */
+.listening-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin-top: 8px;
+  height: 20px;
+}
+
+.listening-wave span {
+  display: inline-block;
+  width: 3px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 3px;
+  animation: wave 1s ease-in-out infinite;
+}
+
+.listening-wave span:nth-child(1) { animation-delay: 0s; }
+.listening-wave span:nth-child(2) { animation-delay: 0.1s; }
+.listening-wave span:nth-child(3) { animation-delay: 0.2s; }
+.listening-wave span:nth-child(4) { animation-delay: 0.3s; }
+.listening-wave span:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes wave {
+  0%, 100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* Message styles for listening indicator */
+.message-bubble.listening-indicator {
+  background: linear-gradient(135deg, rgba(125, 95, 255, 0.3), rgba(125, 95, 255, 0.5));
+  border: 1px solid rgba(125, 95, 255, 0.3);
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px rgba(125, 95, 255, 0.3);
+  }
+  to {
+    box-shadow: 0 0 15px rgba(125, 95, 255, 0.5);
+  }
+}
+
+/* Fix for message contrast */
+.message.bot, .message.user {
+  max-width: 80%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border-radius: 18px;
+  line-height: 1.4;
+  word-break: break-word;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/* Improve accessibility */
+button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Add a loading indicator for audio operations */
+.audio-loading {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  border: 2px solid transparent;
+  border-top-color: #ff4444;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Last message before diagnosis should have smaller margin */
+.message:last-of-type {
+  margin-bottom: 2px;
+}
+
+/* Diagnoses section without tabs */
+.diagnoses-section {
+  width: 100%;
+  background: transparent;
+  animation: fadeIn 0.5s ease;
+  margin-top: -20px;
+  z-index: 10;
+  position: relative;
+}
+
+/* Hide the tabs section since we're not showing diagnosis history */
+.diagnosis-tabs {
+  display: none;
+}
+
+/* Adjust the card to have better spacing */
+.diagnosis-card {
+  background-color: rgba(40, 50, 90, 0.85);
+  border-radius: 12px !important;
+  padding: 10px;
+  margin-top: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: white;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+/* More compact diagnosis header with less bottom spacing */
+.diagnosis-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Make the diagnosis title more compact */
+.diagnosis-header h3 {
+  margin: 0;
+  font-size: 16px;
+  flex-grow: 1;
+  color: white;
+}
+
+/* Reduce the icon size for better proportions */
+.diagnosis-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+/* More compact diagnosis sections */
+.diagnosis-details {
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.diagnosis-details .symptoms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.detail-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.symptoms {
+  font-size: 13px;
+  color: white;
+}
+
+.diagnosis-severity {
+  margin-bottom: 6px;
+}
+
+.severity-badge {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.diagnosis-recommendations {
+  margin-top: 6px;
+}
+
+.diagnosis-recommendations h4 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+}
+
+.diagnosis-recommendations ul {
+  margin: 0;
+  padding: 0 0 0 5px;
+  list-style-type: none;
+}
+
+.diagnosis-recommendations li {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: flex-start;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+}
+
+/* Make space between last message and diagnosis smaller */
+.message:last-of-type {
+  margin-bottom: 2px;
+}
+
+/* Hide specific disease text that's problematic */
+.diagnosis-tab:contains("Dimorphic hemmorhoids"),
+.diagnosis-tab:contains("piles") {
+  color: transparent;
+  position: relative;
+}
+
+.diagnosis-tab:contains("Dimorphic hemmorhoids")::after,
+.diagnosis-tab:contains("piles")::after {
+  content: "Hemorrhoids";
+  position: absolute;
+  color: rgba(255, 255, 255, 0.7);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Add a class to disable animation for input field */
+.no-animation {
+  animation: none !important;
+  transition: border-color 0.3s, box-shadow 0.3s !important;
+}
+
+/* Remove animation from message that might be causing blinking */
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  will-change: transform, opacity;
+}
+
+/* Keep animation only for new messages */
+.message.new-message {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Ensure stable rendering for message components */
+.message-bubble {
+  padding: 12px 16px;
+  border-radius: 18px;
+  max-width: calc(100% - 50px);
+  line-height: 1.4;
+  position: relative;
+  backdrop-filter: blur(4px);
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+/* Optimize render performance with hardware acceleration */
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+/* Focus style - no animation or transition */
+.input-area input:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(120, 100, 255, 0.3);
+  
+  /* No transition */
+  transition: none !important;
+}
+
+/* Optimize messages container */
+.messages {
+  height: 490px;
+  overflow-y: auto;
+  padding: 15px 20px 5px 20px;
+  background-color: transparent;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Prevent blinking for avatar images */
+.avatar img {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Add class for completely static elements */
+.static-no-animation {
+  animation: none !important;
+  transition: none !important;
+  transform: translateZ(0);
+  will-change: auto;
+  contain: layout style paint;
+}
+
+/* Microphone animation */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(125, 95, 255, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(125, 95, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(125, 95, 255, 0); }
+}
+
+/* Listening indicator styles */
+.listening-indicator {
+  background: linear-gradient(135deg, rgba(72, 85, 138, 0.8), rgba(111, 76, 197, 0.8)) !important;
+  border: 2px solid rgba(153, 102, 255, 0.7) !important;
+  box-shadow: 0 0 15px rgba(153, 102, 255, 0.5) !important;
+  animation: pulse-glow 1.5s infinite alternate !important;
+}
+
+.listening-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  margin-top: 8px;
+}
+
+.listening-wave span {
+  display: inline-block;
+  width: 4px;
+  height: 15px;
+  margin: 0 2px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  animation: wave 1.2s infinite ease-in-out;
+}
+
+.listening-wave span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.listening-wave span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.listening-wave span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.listening-wave span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.listening-wave span:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+@keyframes wave {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+  }
+  20% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 5px rgba(153, 102, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(153, 102, 255, 0.8);
+  }
+}
+
+/* Add this to the existing button styles */
+.mic-button.active {
+  background: linear-gradient(135deg, #7d5fff, #9966ff);
+  box-shadow: 0 0 15px rgba(153, 102, 255, 0.7);
+  transform: scale(1.05);
+  position: relative;
+}
+
+.mic-button.active::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  border: 2px solid rgba(153, 102, 255, 0.7);
+  animation: ripple 1.5s infinite;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Patient History Styles */
+.history-container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(125, 95, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(40, 50, 90, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.history-container h3 {
+  color: rgba(40, 50, 90, 0.9);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.history-subtitle {
+  color: rgba(125, 95, 255, 0.8);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history-item {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(125, 95, 255, 0.1);
+  border-radius: 8px;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.history-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(125, 95, 255, 0.3);
+}
+
+.history-date {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  color: rgba(40, 50, 90, 0.8);
+}
+
+.history-content p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.loading-indicator, 
+.error-message,
+.no-records {
+  padding: 1rem;
+  text-align: center;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.loading-indicator {
+  background: rgba(125, 95, 255, 0.05);
+  color: rgba(125, 95, 255, 0.8);
+}
+
+.error-message {
+  background: rgba(255, 75, 75, 0.05);
+  color: #ff4b4b;
+}
+
+.no-records {
+  background: rgba(0, 0, 0, 0.02);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* End Patient History Styles */
+
+/* Blockchain Controls */
+.blockchain-button {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(40, 50, 90, 0.9), rgba(125, 95, 255, 0.9));
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blockchain-button:hover {
+  background: linear-gradient(135deg, rgba(40, 50, 90, 1), rgba(125, 95, 255, 1));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.blockchain-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.diagnosis-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(125, 95, 255, 0.2);
+}
+
+.diagnosis-controls {
+  display: flex;
+  align-items: center;
+}
+
+.diagnosis-timestamp {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 1rem;
+  text-align: right;
+  font-style: italic;
+}
+
+/* Updated layout for the main container */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (min-width: 992px) {
+  .main-container {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  
+  .chat-container {
+    flex: 3;
+  }
+  
+  .diagnosis-container {
+    flex: 2;
+    margin-top: 0;
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+.send-button .icon-fallback,
+.mic-button .icon-fallback {
+  display: none;
+}
+
+/* Show fallback icons if Font Awesome fails to load */
+.send-button .fa-solid:not(:before) + .icon-fallback,
+.mic-button .fa-solid:not(:before) + .icon-fallback {
+  display: inline;
+}
+
+/* Diagnosis error styling */
+.diagnosis-error {
+  background: #fff3f3;
+  border: 1px solid #ffcdd2;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: #d32f2f;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.env-indicator {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 5px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+} 

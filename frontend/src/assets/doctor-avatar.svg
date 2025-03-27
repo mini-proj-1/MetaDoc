@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="100" fill="#7d5fff"/>
+  
+  <!-- Doctor head -->
+  <circle cx="100" cy="80" r="40" fill="#f5f5f5"/>
+  
+  <!-- Doctor hair -->
+  <path d="M60 80C60 57.9086 77.9086 40 100 40C122.091 40 140 57.9086 140 80C140 80 140 90 130 95C120 100 120 85 100 85C80 85 80 100 70 95C60 90 60 80 60 80Z" fill="#333333"/>
+  
+  <!-- Doctor face -->
+  <circle cx="85" cy="75" r="5" fill="#333333"/> <!-- Left eye -->
+  <circle cx="115" cy="75" r="5" fill="#333333"/> <!-- Right eye -->
+  <path d="M90 95C93.3333 98.3333 106.667 98.3333 110 95" stroke="#333333" stroke-width="3" stroke-linecap="round"/> <!-- Smile -->
+  
+  <!-- Medical cross -->
+  <rect x="85" cy="120" width="30" height="10" fill="#ff4444" rx="2"/>
+  <rect x="95" cy="110" width="10" height="30" fill="#ff4444" rx="2"/>
+  
+  <!-- Stethoscope -->
+  <path d="M130 110C140 110 150 115 150 130" stroke="#333333" stroke-width="4" stroke-linecap="round"/>
+  <path d="M150 130C150 135.523 145.523 140 140 140C134.477 140 130 135.523 130 130C130 124.477 134.477 120 140 120C145.523 120 150 124.477 150 130Z" fill="#333333"/>
+  
+  <!-- Doctor coat -->
+  <path d="M60 140V170C60 180 70 190 100 190C130 190 140 180 140 170V140" fill="#f5f5f5"/>
+  <path d="M60 140C60 120 80 105 100 105C120 105 140 120 140 140" fill="#f5f5f5"/>
+  <path d="M100 105V190" stroke="#e0e0e0" stroke-width="2"/>
+</svg> 
