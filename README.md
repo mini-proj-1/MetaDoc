@@ -28,8 +28,8 @@ An AI-powered medical diagnosis application with blockchain integration for secu
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/metaverse-doctor.git
-   cd metaverse-doctor
+   git clone https://github.com/mini-proj-1/MetaDoc.git
+   cd MetaDoc
    ```
 
 2. Install backend dependencies:
@@ -79,4 +79,4 @@ Or start manually:
 
 ## License
 
-MIT License 
+MIT License
